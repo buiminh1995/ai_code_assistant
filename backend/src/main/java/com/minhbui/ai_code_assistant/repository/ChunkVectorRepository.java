@@ -27,18 +27,22 @@ public class ChunkVectorRepository {
 
     }
 
-    public List<SimilarChunk> findSimilarChunks(float[] embedding, int limit) {
+    public List<SimilarChunk> findSimilarChunks(Long repositoryId, float[] embedding, int limit) {
         return jdbcTemplate.query(
             """
-            SELECT id, content
-            FROM chunks
-            ORDER BY embedding <=> ?
-            LIMIT ?
+            SELECT c.id, c.content
+            FROM chunks c
+            JOIN code_files f
+                ON c.code_file_id = f.id
+            WHERE f.repository_id = ?
+            ORDER BY c.embedding <=> ?
+            LIMIT ?;
             """,
             (rs, rowNum) -> new SimilarChunk(
                     rs.getLong("id"),
                     rs.getString("content")
             ),
+            repositoryId,
             new PGvector(embedding),
             limit
         );

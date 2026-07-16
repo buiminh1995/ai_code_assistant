@@ -70,21 +70,21 @@ public class RepositoryController {
         return "Done";
     }
 
-    @GetMapping("/search")
-    public List<SimilarChunk> search(@RequestParam String question) throws Exception {
+    // @GetMapping("/search")
+    // public List<SimilarChunk> search(@RequestParam String question) throws Exception {
 
-        float[] embedding =
-                embeddingService.generateEmbedding(question);
+    //     float[] embedding =
+    //             embeddingService.generateEmbedding(question);
 
-        return chunkVectorRepository.findSimilarChunks(
-                embedding,
-                5
-        );
-    }
+    //     return chunkVectorRepository.findSimilarChunks(
+    //             embedding,
+    //             5
+    //     );
+    // }
 
-    @PostMapping("/ask")
-    public String ask(@RequestParam String question) throws Exception {
-        return chatService.ask(question);
+    @PostMapping("/{id}/ask")
+    public String ask(@PathVariable Long id, @RequestParam String question) throws Exception {
+        return chatService.ask(id, question);
     }
 
 }

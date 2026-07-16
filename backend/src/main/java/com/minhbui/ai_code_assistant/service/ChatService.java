@@ -25,11 +25,11 @@ public class ChatService {
         this.ollamaClient = ollamaClient;
     }
 
-    public String ask(String question) throws Exception {
+    public String ask(Long repositoryId, String question) throws Exception {
 
         float[] embedding = embeddingService.generateEmbedding(question);
 
-        List<SimilarChunk> chunks = chunkVectorRepository.findSimilarChunks(embedding, 5);
+        List<SimilarChunk> chunks = chunkVectorRepository.findSimilarChunks(repositoryId, embedding, 5);
 
         StringBuilder prompt = new StringBuilder();
 
