@@ -30,9 +30,7 @@ public class EmbeddingJobService {
         List<ChunkEntity> chunks = chunkRepository.findByCodeFileRepositoryId(repositoryId);
 
         for (ChunkEntity chunk : chunks) {
-
             float[] embedding = embeddingService.generateEmbedding(chunk.getContent());
-
             chunkVectorRepository.saveEmbedding(chunk.getId(),embedding);
         }
     }

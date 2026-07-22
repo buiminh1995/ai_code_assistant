@@ -20,9 +20,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import ch.usi.si.seart.treesitter.*;
+
 @RestController
 @RequestMapping("/repositories")
 public class RepositoryController {
+
+    //         static {
+    //     LibraryLoader.load();
+    // }
 
     private final RepositoryService repositoryService;
     private final OllamaClient ollamaClient;
@@ -45,7 +51,11 @@ public class RepositoryController {
         this.chunkVectorRepository = chunkVectorRepository;
         this.chatService = chatService;
     }
-
+//     curl -X POST http://localhost:8080/repositories \
+// -H "Content-Type: application/json" \
+// -d '{
+// "url":"https://github.com/spring-projects/spring-petclinic"
+// }'
     @PostMapping
     public RepositoryEntity create (
             @Valid @RequestBody CreateRepositoryRequest request) throws Exception {

@@ -10,7 +10,7 @@ import java.util.List;
 public class FileScannerService {
 
     private static final List<String> IGNORED =
-            List.of(".git", "node_modules", "target", "build", ".idea");
+            List.of(".git", "node_modules", "target", "build", ".idea",".eot",".svg",".ttf",".woff",".jar", ".png");
 
     public List<File> scan(File root) {
 
@@ -39,6 +39,14 @@ public class FileScannerService {
             }
 
         } else {
+
+            String fileName = file.getName().toLowerCase();
+
+            for (String ignored : IGNORED) {
+                if (fileName.endsWith(ignored)) {
+                    return;
+                }
+            }
 
             files.add(file);
 

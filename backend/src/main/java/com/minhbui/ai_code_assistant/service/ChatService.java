@@ -29,7 +29,9 @@ public class ChatService {
 
         float[] embedding = embeddingService.generateEmbedding(question);
 
-        List<SimilarChunk> chunks = chunkVectorRepository.findSimilarChunks(repositoryId, embedding, 5);
+        List<SimilarChunk> chunks = chunkVectorRepository.findSimilarChunks(repositoryId, embedding, 10);
+
+        System.out.println(chunks);
 
         StringBuilder prompt = new StringBuilder();
 
